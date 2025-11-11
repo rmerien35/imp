@@ -1,0 +1,66 @@
+{ Grammaire de l'interpreteur ARM }
+
+{
+%0 : Initialisation
+
+1Šre Passe
+%1 : ID --> Tab_ID
+%2 : Inc(CO)
+
+2Šme Passe
+%2 : Inc(CO)
+%3 : Memoire[CO].Type_Code:=_Instr;
+     Memoire[CO].Instr:=CHAINE;
+%4 : Memoire[CO].Type_Code:=_Donnee;
+   : Memoire[CO].Type_Donnee:=_Adr;
+%5 : Memoire[CO].Type_Code:=_Donnee;
+   : Memoire[CO].Type_Donnee:=_Chaine;
+%6 : Memoire[CO].Type_Code:=_Donnee;
+   : Memoire[CO].Type_Donnee:=_Valeur;
+%7 : Memoire[CO].Valeur:=Tab_Id[Code_Id(CHAINE)].Adr;
+%8 : Memoire[CO].Chaine:=CHAINE;
+%9 : Memoire[CO].Valeur:=VALEUR;
+
+}
+
+Production = 'Vide' ;
+
+Prog    =  Ligne_Code  Prog
+        |  'Vide'  ;
+
+Ligne_Code =  Label Suite_Label
+           |  Instr %3 %2 ;
+
+Label   =  'ID' %1 ':' ;
+Suite_Label =  Instr %3 %2
+            |  'TYPE_INTEGER' %6 %2
+            |  'TYPE_STRING'  %5 %2
+            |  'Vide' ;
+
+Instr   =  'PUSH'  Options
+        |  'POP'   'ID' %4 %7 %2
+        |  'ADD'
+        |  'SUB'
+        |  'DIV'
+        |  'MUL'
+        |  'INF'
+        |  'SUP'
+        |  'EQU'
+        |  'OR'
+        |  'AND'
+        |  'NOT'
+        |  'NEG'
+        |  'INC'
+        |  'DEC'
+        |  'CALL'  'ID' %4 %7 %2
+        |  'RET'
+        |  'JMP'   'ID' %4 %7 %2
+        |  'JC'    'ID' %4 %7 %2
+        |  'JNC'   'ID' %4 %7 %2
+        |  'WRITE' 'ID' %4 %7 %2
+        |  'READ'  'ID' %4 %7 %2
+        |  'NOP'
+        |  'END' ;
+
+Options  =  'ID' %4 %7 %2 |  'CH' %5 %8 %2  |  'NB' %6 %9 %2  ;
+

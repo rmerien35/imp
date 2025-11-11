@@ -1,0 +1,42 @@
+{------ Instructions -------}
+        JMP MAIN
+FACT:
+        POP FACT.N
+if1:
+        PUSH FACT.N
+        PUSH 1
+        EQU
+        JNC else1
+then1:
+        PUSH 1
+        JMP endif1
+else1:
+        PUSH FACT.N
+        PUSH FACT.N
+        DEC
+        CALL FACT
+        MUL
+endif1:
+        RET
+
+MAIN:
+        PUSH 'Valeur n:'
+        POP MAIN.CHAINE
+        WRITE MAIN.CHAINE
+        READ MAIN.N
+        PUSH MAIN.N
+        CALL FACT
+        POP MAIN.RES
+        WRITE MAIN.RES
+        END
+{--------- Donn‚es ---------}
+{ Fonction> MAIN: Type_VOID }
+MAIN.RES:   Type_INTEGER
+MAIN.N:   Type_INTEGER
+MAIN.CHAINE:   Type_STRING
+
+{ Fonction> FACT: Type_INTEGER }
+FACT.N:   Type_INTEGER
+FACT.RES:   Type_INTEGER
+
+

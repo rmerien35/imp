@@ -1,0 +1,48 @@
+{------ Instructions -------}
+        JMP MAIN
+MAXIMUM: 
+        POP MAXIMUM.J
+        POP MAXIMUM.I
+if1: 
+        PUSH MAXIMUM.I
+        PUSH MAXIMUM.J
+        INF
+        JNC else1
+then1: 
+        PUSH MAXIMUM.J
+        JMP endif1
+else1: 
+        PUSH MAXIMUM.I
+endif1: 
+        RET
+
+MAIN: 
+        PUSH 'Valeur i:'
+        POP MAIN.CHAINE
+        WRITE MAIN.CHAINE
+        READ MAIN.I
+        PUSH 'Valeur j:'
+        POP MAIN.CHAINE
+        WRITE MAIN.CHAINE
+        READ MAIN.J
+        PUSH 'Maximum >'
+        POP MAIN.CHAINE
+        WRITE MAIN.CHAINE
+        PUSH MAIN.I
+        PUSH MAIN.J
+        CALL MAXIMUM
+        POP MAIN.MAX
+        WRITE MAIN.MAX
+        END
+{--------- Donn‚es ---------}
+{ Fonction> MAIN: Type_VOID }
+MAIN.I:   Type_INTEGER
+MAIN.J:   Type_INTEGER
+MAIN.MAX:   Type_INTEGER
+MAIN.CHAINE:   Type_STRING 
+
+{ Fonction> MAXIMUM: Type_INTEGER }
+MAXIMUM.I:   Type_INTEGER
+MAXIMUM.J:   Type_INTEGER
+
+
